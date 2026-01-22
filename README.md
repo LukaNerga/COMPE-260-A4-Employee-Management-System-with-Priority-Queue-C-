@@ -1,96 +1,113 @@
-COMPE-260 A4
-Employee Management System with Priority Queue – C++
+# Employee Priority Queue System (C++ / OOP)
 
-Author: Luka Nergadze
-Language: C++
+A simple **C++ object-oriented project** demonstrating **inheritance, polymorphism, operator overloading, and a priority queue** to manage employees based on their calculated salaries.
 
-Project Overview
+---
 
-This project implements a simulated employee management system for a technology company. Employees include Developers and Testers, each with unique skills, experience, and qualifications. The system uses object-oriented programming principles (inheritance, polymorphism, encapsulation) and a priority queue to manage employees by their calculated salaries.
+## Overview
 
-Features
+- **Language:** C++
+- **Paradigm:** Object-Oriented Programming (OOP)
+- **Key Concepts Used:**
+  - Abstract base classes
+  - Inheritance
+  - Virtual functions
+  - Polymorphism
+  - Operator overloading
+  - Dynamic memory management
+  - Priority-based ordering
 
-Class Hierarchy with Inheritance
+---
 
-Abstract Employee base class
+## Project Description
 
-Derived classes: Developer, Tester
+This program models a small employee management system where different employee types  
+(**Developers** and **Testers**) are stored in a **Priority Queue** and ordered by salary.
 
-Specialized attributes and methods for each role
+Each employee:
+- Has a name, ID, class, experience (in months), and salary
+- Calculates salary differently depending on their role
+- Is sorted in the queue using the `<` operator (higher salary → higher priority)
 
-Salary Calculation
+---
 
-Salary is computed based on position, experience, and qualification level
+## Class Structure
 
-Developers: additional salary for technology and level
+### Employee (Abstract Base Class)
 
-Testers: adjusted salary based on experience and level
+- Common attributes shared by all employees
+- Declares a **pure virtual function** for salary calculation
 
-Priority Queue
+Key features:
+- `calculateSalary()` → pure virtual
+- `getInfo()` → virtual
+- `<` operator overloaded for priority comparison
 
-Stores employees in order of salary (higher salary = higher priority)
+---
 
-Operations: addEmployee, deleteEmployee, printQueue
+### Developer (Derived Class)
 
-Uses std::priority_queue with a custom comparator
+Extends `Employee` with:
+- Technology stack (e.g., React, .NET)
+- Skill level (`Junior`, `Middle`, `Senior`)
 
-Driver Program
+Salary calculation:
+- Base salary: `3000`
+- Level bonus:
+  - Senior → `+2000`
+  - Middle → `+1000`
+- Experience bonus:
+  - `+50` per month
 
-Creates multiple employee instances
+---
 
-Adds employees to the queue
+### Tester (Derived Class)
 
-Prints employees sorted by priority
+- Inherits from `Employee`
+- Salary depends on experience and tester level  
+*(implementation assumed similar to Developer)*
 
-Demonstrates polymorphism and operator overloading
+---
 
-How to Use
+### PriorityQueue
 
-Clone the repository or download the code.
+- Stores `Employee*`
+- Orders employees based on salary using the overloaded `<` operator
+- Supports:
+  - Adding employees
+  - Printing the queue in priority order
 
-Compile the project:
+---
 
-g++ -o employee main.cpp Developer.cpp Tester.cpp PriorityQueue.cpp Employee.cpp
+## Program Flow
+
+1. Create a `PriorityQueue`
+2. Dynamically allocate Developers and Testers
+3. Add them to the queue
+4. Print employees ordered by salary
+5. Free allocated memory
+
+---
+
+## Example Output
 
 
-Run the program:
 
-./employee
-
-
-Output shows employees sorted by salary, using polymorphic getInfo().
-
-Example Output
 Employee Queue:
-Name: Alice, ID: 1, Class: Developer, Experience: 36 months, Salary: 5000, Tech: .Net, Level: Senior
-Name: Dave, ID: 4, Class: Tester, Experience: 48 months, Salary: 3940, Level: Senior
-Name: Bob, ID: 2, Class: Developer, Experience: 24 months, Salary: 4300, Tech: React, Level: Middle
-Name: Charlie, ID: 3, Class: Tester, Experience: 12 months, Salary: 2860, Level: Junior
+Name: Dave, ID: 4, Class: Tester, Experience: 48 months, Salary: 5400
+Name: Alice, ID: 1, Class: Developer, Experience: 36 months, Salary: 6800, Tech: .Net, Level: Senior
+Name: Bob, ID: 2, Class: Developer, Experience: 24 months, Salary: 5200, Tech: React, Level: Middle
+Name: Charlie, ID: 3, Class: Tester, Experience: 12 months, Salary: 3600
 
-Files
 
-Employee.h/cpp – abstract base class for all employees
 
-Developer.h/cpp – Developer subclass with tech and level
-
-Tester.h/cpp – Tester subclass with level
-
-PriorityQueue.h/cpp – Priority queue implementation using std::priority_queue
-
-main.cpp – driver program to demonstrate functionality
-
-What I Learned
-
-Inheritance & Polymorphism – abstract base class with specialized subclasses
-
-Encapsulation – common attributes centralized in Employee class
-
-Custom Priority Queue – used custom comparator for sorting by salary
-
-Operator Overloading – < operator to compare employees
-
-Real-world Simulation – salary calculation logic for different roles
-
-License
-
-This project is open-source and intended for learning and academic purposes.
+Notes
+Memory is managed manually using new and delete
+Employee destructor is virtual to prevent memory leaks
+Priority ordering is based on salary, not insertion order
+Designed as a learning project for OOP fundamentals
+Possible Improvements
+Use smart pointers (std::unique_ptr)
+Replace custom priority queue with std::priority_queue
+Add file input/output
+Add more employee roles
